@@ -11,7 +11,7 @@ jobs:
       - name: Checkout source (Los 22.2, shallow clone)
         uses: actions/checkout@v4
         with:
-          ref: twelve
+          ref: lineage-22.2
           fetch-depth: 1   # 只拉最新一次提交，加快速度
 
       - name: Install dependencies
