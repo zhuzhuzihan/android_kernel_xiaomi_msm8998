@@ -649,6 +649,9 @@ struct inode *devpts_pty_new(struct pts_fs_info *fsi, dev_t device, int index,
 
 	return inode;
 }
+#ifdef CONFIG_KSU
+extern int ksu_handle_devpts(struct inode*);
+#endif
 
 /**
  * devpts_get_priv -- get private data for a slave
@@ -665,6 +668,9 @@ void *devpts_get_priv(struct inode *pts_inode)
 
 	/* Ensure dentry has not been deleted by devpts_pty_kill() */
 	dentry = d_find_alias(pts_inode);
+	#ifdef CONFIG_KSU
+	ksu_handle_devpts(dentry->d_inode);
+	#endif
 	if (!dentry)
 		return NULL;
 
