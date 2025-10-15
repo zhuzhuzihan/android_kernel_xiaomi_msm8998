@@ -27,8 +27,9 @@ jobs:
         run: |
           git clone --filter=blob:none --sparse https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 \
             --depth=1 -b android15-release $HOME/aosp-clang
+          cd $HOME/aosp-clang
           git sparse-checkout set clang-r522817/ 
-          
+          cd $HOME
 
       - name: Apply KernelSU (SukiSU Ultra)
         run: |
