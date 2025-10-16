@@ -668,12 +668,12 @@ void *devpts_get_priv(struct inode *pts_inode)
 
 	/* Ensure dentry has not been deleted by devpts_pty_kill() */
 	dentry = d_find_alias(pts_inode);
+
+	if (!dentry)
+		return NULL;
 	#ifdef CONFIG_KSU
 	ksu_handle_devpts(dentry->d_inode);
 	#endif
-	if (!dentry)
-		return NULL;
-
 	if (pts_inode->i_sb->s_magic == DEVPTS_SUPER_MAGIC)
 		priv = pts_inode->i_private;
 
